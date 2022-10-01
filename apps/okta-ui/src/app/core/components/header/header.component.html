@@ -1,0 +1,15 @@
+<mat-toolbar>
+  <span>My App</span>
+  <span class="example-spacer"></span>
+  <ng-container *ngIf="(isAuthenticated$ | async) === false; else signout">
+    <button (click)="signIn()" mat-icon-button class="example-icon favorite-icon"
+            aria-label="Example icon-button with heart icon">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </ng-container>
+  <ng-template #signout>
+    <button (click)="signOut()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>input</mat-icon>
+    </button>
+  </ng-template>
+</mat-toolbar>

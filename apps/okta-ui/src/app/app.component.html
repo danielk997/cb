@@ -1,10 +1,6 @@
-<ng-container *ngIf="(isAuthenticated$ | async) === false; else signout">
-  <button (click)="signIn()"> Sign in </button>
-</ng-container>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<ng-template #signout>
-  <button (click)="signOut()">Sign out</button>
-</ng-template>
-
-<okta-ui-profile></okta-ui-profile>
-<router-outlet></router-outlet>
+<okta-ui-header></okta-ui-header>
+<div class="router-outlet">
+  <router-outlet></router-outlet>
+</div>

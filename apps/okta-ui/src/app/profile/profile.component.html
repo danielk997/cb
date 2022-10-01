@@ -3,4 +3,23 @@
   <p *ngIf="name$ | async as name">
     Hello {{name}}!
   </p>
+  <ng-container *ngIf="name$ | async">
+    <h2>Add new user</h2>
+    <form [formGroup]="form">
+      <mat-form-field>
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" placeholder="First Name"> <br>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" placeholder="Last Name"> <br>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>E-mail</mat-label>
+        <input matInput formControlName="email" placeholder="E-mail">
+      </mat-form-field>
+    </form>
+    <button mat-flat-button color="primary" (click)="onSubmit()" type="button">Submit</button>
+  </ng-container>
 </div>
+<div></div>

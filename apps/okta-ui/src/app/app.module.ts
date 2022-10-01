@@ -9,6 +9,9 @@ import {ProfileComponent} from './profile/profile.component';
 import {SharedModule} from "./shared/shared.module";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
+import {ReactiveFormsModule} from "@angular/forms";
+import {CoreModule} from "./core/core.module";
+import {MatInputModule} from "@angular/material/input";
 
 const oktaAuth = new OktaAuth({
   issuer: 'https://dev-77946468.okta.com/oauth2/default',
@@ -18,7 +21,7 @@ const oktaAuth = new OktaAuth({
 
 @NgModule({
   declarations: [AppComponent, ProfileComponent],
-  imports: [BrowserModule, OktaAuthModule, AppRoutingModule, SharedModule],
+    imports: [BrowserModule, OktaAuthModule, AppRoutingModule, SharedModule, ReactiveFormsModule, CoreModule, MatInputModule],
   providers: [
     {provide: OKTA_CONFIG, useValue: {oktaAuth}},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
