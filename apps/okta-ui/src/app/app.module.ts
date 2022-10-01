@@ -1,13 +1,29 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import {AppComponent} from './app.component';
+import OktaAuth from '@okta/okta-auth-js';
+import {OKTA_CONFIG, OktaAuthModule} from '@okta/okta-angular';
+import {AppRoutingModule} from './app-routing.module';
+import {ProfileComponent} from './profile/profile.component';
+import {SharedModule} from "./shared/shared.module";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
+
+const oktaAuth = new OktaAuth({
+  issuer: 'https://dev-77946468.okta.com/oauth2/default',
+  clientId: '0oa6plozn12o3wexG5d7',
+  redirectUri: window.location.origin + '/login/callback',
+});
 
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent],
-  imports: [BrowserModule],
-  providers: [],
+  declarations: [AppComponent, ProfileComponent],
+  imports: [BrowserModule, OktaAuthModule, AppRoutingModule, SharedModule],
+  providers: [
+    {provide: OKTA_CONFIG, useValue: {oktaAuth}},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}

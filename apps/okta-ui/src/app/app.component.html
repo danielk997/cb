@@ -1,1 +1,10 @@
-<okta-ui-nx-welcome></okta-ui-nx-welcome>
+<ng-container *ngIf="(isAuthenticated$ | async) === false; else signout">
+  <button (click)="signIn()"> Sign in </button>
+</ng-container>
+
+<ng-template #signout>
+  <button (click)="signOut()">Sign out</button>
+</ng-template>
+
+<okta-ui-profile></okta-ui-profile>
+<router-outlet></router-outlet>
