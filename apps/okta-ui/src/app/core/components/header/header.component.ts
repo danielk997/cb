@@ -16,16 +16,21 @@ export class HeaderComponent implements OnInit {
     private _router: Router,
     private _oktaStateService: OktaAuthStateService,
     @Inject(OKTA_AUTH) private _oktaAuth: OktaAuth,
-  ) { }
+  ) {
+  }
 
   public ngOnInit(): void {
     this.isAuthenticated$ = this._oktaStateService.authState$.pipe(
       filter((s: AuthState) => !!s),
       map((s: AuthState) => s.isAuthenticated ?? false)
     );
+
+    setInterval(() => {
+      console.log(document.cookie);
+    }, 2000);
   }
 
-  public async signIn() : Promise<void> {
+  public async signIn(): Promise<void> {
     await this._oktaAuth.signInWithRedirect().then(
       () => this._router.navigate(['/profile'])
     );
