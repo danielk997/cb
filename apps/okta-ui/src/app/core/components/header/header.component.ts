@@ -11,6 +11,8 @@ import OktaAuth, {AuthState} from "@okta/okta-auth-js";
 })
 export class HeaderComponent implements OnInit {
   public isAuthenticated$!: Observable<boolean>;
+  initSessionTime = 120;
+  sessionTime = this.initSessionTime;
 
   constructor(
     private _router: Router,
@@ -25,9 +27,22 @@ export class HeaderComponent implements OnInit {
       map((s: AuthState) => s.isAuthenticated ?? false)
     );
 
-    setInterval(() => {
-      console.log(document.cookie);
-    }, 2000);
+    this.handleSession();
+    this.initListeners();
+  }
+
+  handleSession() {
+    const interval = setInterval(() => {
+      this.sessionTime--;
+      if (this.sessionTime <= 0) {
+        clearInterval(interval);
+        this.signOut();
+      }
+    }, 1000);
+  }
+
+  private initListeners() {
+    ['click', 'keydown'].forEach(it => addEventListener(it, () => this.sessionTime = this.initSessionTime));
   }
 
   public async signIn(): Promise<void> {

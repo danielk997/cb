@@ -12,6 +12,7 @@ import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CoreModule} from "./core/core.module";
 import {MatInputModule} from "@angular/material/input";
+import {NgHcaptchaModule} from "ng-hcaptcha";
 
 const oktaAuth = new OktaAuth({
   issuer: 'https://dev-77946468.okta.com/oauth2/default',
@@ -21,7 +22,10 @@ const oktaAuth = new OktaAuth({
 
 @NgModule({
   declarations: [AppComponent, ProfileComponent],
-    imports: [BrowserModule, OktaAuthModule, AppRoutingModule, SharedModule, ReactiveFormsModule, CoreModule, MatInputModule],
+  imports: [BrowserModule, OktaAuthModule, AppRoutingModule, SharedModule, ReactiveFormsModule, CoreModule, MatInputModule, NgHcaptchaModule, NgHcaptchaModule.forRoot({
+    siteKey: '64a69842-9133-49c8-b87e-ca094b1fceed',
+  }),
+    NgHcaptchaModule.forRoot()],
   providers: [
     {provide: OKTA_CONFIG, useValue: {oktaAuth}},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}

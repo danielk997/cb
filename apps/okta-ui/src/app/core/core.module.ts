@@ -6,7 +6,10 @@ import {SimpleDialogComponent} from './components/simple-dialog/simple-dialog.co
 
 @NgModule({
   declarations: [HeaderComponent, SimpleDialogComponent],
-    imports: [CommonModule, SharedModule],
+  imports: [
+    CommonModule,
+    SharedModule],
   exports: [HeaderComponent],
 })
-export class CoreModule {}
+export class CoreModule {
+}
